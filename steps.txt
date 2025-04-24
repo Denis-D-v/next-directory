@@ -79,11 +79,57 @@ change fonts
 -globalcss: <How to USE Classes>
 
 
+=========<How to USE CLASSES CSS to APLY========
+in global.css u cr <a @layer utilities> --> inside cr a classe or many classes
+foreexample <a .heading>--> inside all styles: text, size others 
+but u have add <a @tailwind utilities;>:
+And in HOME page or other just put in classname <a heading>:
+-global.css
+/* @import 'tailwindcss'; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
--For fonts got to https://drive.google.com/file/d/1OEFHnEq5pQFP86u8FOBLBBNxKPsbjjqU/view
+@layer utilities {
+  .heading {
+    @apply uppercase bg-black px-6 py-3 font-work-sans font-extrabold text-white sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
+  }
+}
 
+-pagwe.tsx:
+<h1 className="heading">Home</h1>;
+CAN reuse classes in others components
+================================================================
+- npx shadcn@latest init
+choose  NewYork --> slate
 
+❯   Use --force
+    Use --legacy-peer-deps //choose this one
 
+After that  tailwind.config.ts and app/global.csss will modify so:
+-github/readme/snipets/global.css copy and put in global.css
+ tailwind.config.ts --do the same
+
+ - page.tsx add h1, p, 
+
+ yelow transperent lines on pink BG is a lener gradient!
+ HOW to FIND or CORECT: 
+ in <page.tsx> we have <a section className="pink_container">-->
+ --->global.css-->@layer utilities ...-->.pink_container {
+    @apply w-full bg-primary min-h-[530px] <A pattern >...-->
+-->(global.css) below <a .pattern {>:
+.pattern {
+    background-image: linear-gradient(
+      to right,
+      transparent 49.5%,
+      rgba(251, 232, 67, 0.2) 49.5%,
+      rgba(251, 232, 67, 0.6) 50.5%,
+      transparent 50.5%
+    );
+    background-size: 5% 100%;
+    background-position: center;
+    background-repeat: repeat-x;
+  }
 
 
 
