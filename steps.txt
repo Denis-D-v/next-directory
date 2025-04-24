@@ -1,0 +1,105 @@
+
+
+"packageManager": "npm@10.5.2",
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom"
+  }
+npm run dev
+
+go https://authjs.dev/getting-started/installation?framework=Next.js
+Authjs -nextjs
+npm install next-auth@beta
+npx auth secret (cr .env.local)
+
+ -cr Auth.ts copy from website Auth.js
+ import NextAuth from "next-auth"
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [],
+})
+
+-app_F: cr api_F
+-api_F: cr auth_F
+-auth_F: cr dynamic folder - [...nextauth]
+-[...nextauth]: cr route.ts
+
+-Auth.js --> Getting Started-->Authentication-->OAuth
+LeftSidebar -->conections-->GitHub-->GitHub - <Creating an OAuth App>
+USE INSTRUCTIONSregister a new OAuth app:
+Application name      NEXT_DIRECTORY
+Homepage URL          http://localhost:3000
+Application           Directory for the new era of starups
+description  
+ Authorization callback URL: https://localhost:3000/api/auth/callback/github
+ (Auth.js -->Conections--> GitHub Provider-->Call backURL--> Nextjs)
+ just copy 
+
+AFTER in github Copy CLIENT ID : Ov23liQwUTQhCvqVxqCV 
+ and put to.env.local
+AUTH_SECRET="Fg5qbYm9C+gyEeYRnM49RJa6ll6NpZS+pRViL0N6T50=" # Added by `npx auth`. Read more: https://cli.authjs.dev
+AUTH_GITHUB_ID="Ov23liQwUTQhCvqVxqCV"
+
+AFTER in github  Generate a new client secret  CLIENT ID
+and put to.env.local
+AUTH_GITHUB_SECRET="fa63b4df05a2c50f92c4c01c0d52781976bbd9ef"
+
+-Figma --> cr new file-->frame--> cr Logo -->upload to pc -->
+-->upload logo on github
+
+-www.Auth.js : copy configuration and update auth.ts
+import NextAuth from "next-auth"
+import GitHub from "next-auth/providers/github"
+ 
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  providers: [GitHub],
+})
+
+-app_F: cr components_F and  cr (root_F)
+-components_F:  cr NAvabar.tsx
+-(root_F)cr Layotu.tsx 
+-page.tsx(Home) mpve to (root_F)
+
+-https://github.com/adrianhajdin/yc_directory?tab=readme-ov-file -->
+--> tailwind.config.ts copy 
+
+-npm install tailwindcss-animate
+npm install@tailwindcss/typography
+ 
+
+ -upload zip from https://drive.google.com/file/d/1OEFHnEq5pQFP86u8FOBLBBNxKPsbjjqU/view
+ take assets_F and put into  NEXT_DIRECTORY (fonts, logo, favicon.ico)
+
+-favicon.ico move to app_F
+-public move to NEXT_DIRECTORY_F outside into app!
+
+
+-app --> Layout.tsx
+change fonts
+
+-globalcss: <How to USE Classes>
+
+
+
+-For fonts got to https://drive.google.com/file/d/1OEFHnEq5pQFP86u8FOBLBBNxKPsbjjqU/view
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+npm install @tailwindcss/postcss
+
