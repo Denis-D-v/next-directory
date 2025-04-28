@@ -131,6 +131,47 @@ After that  tailwind.config.ts and app/global.csss will modify so:
     background-repeat: repeat-x;
   }
 
+==================<f Create a SearchForm.tsx>=================================
+-components_F: cr SearchForm.tsx
+-app/root/page: put SearchForm after <p>
+  <p className="sub-heading !max-w-3xl">
+          Submit Ideas, Vote on Pitches, and Get Noticed in Virtual
+          Competitions.
+        </p>
+        <SearchForm />
+      </section>
+
+-components_F : CR     <SearchForm />
+  Because  <button type = "reset" onClick={reset}> still on Client side we have to Cr
+  a <SearchFormReset.tsx in components_F>
+'use client';
+
+import Link from 'next/link';
+
+const SearchFormReset = () => {
+  const reset = () => {
+    const form = document.querySelector('.search-form') as HTMLFormElement;
+    if (form) form.reset();
+  };
+  return (
+    <button type="reset" onClick={reset}>
+      <Link href="/" className="search-btn text-white">
+        X
+      </Link>
+    </button>
+  );
+};
+export default SearchFormReset;
+
+-npx shadcn@latest add button
+❯  Use --legacy-peer-deps //choose this one
+
+u will get- Created 1 file(- components/ui/button.tsx)
+
+U get 2 components_Folders and u need one but OTSIDE from app
+so take Navbar, SeaarchForm, SeaarchFormReset and to move
+to components_F where ui_f is
+
 
 
 
