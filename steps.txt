@@ -172,7 +172,21 @@ U get 2 components_Folders and u need one but OTSIDE from app
 so take Navbar, SeaarchForm, SeaarchFormReset and to move
 to components_F where ui_f is
 
+=============<the CR CARDS Sections>==============
+after pink Container section
+-page.tsx: cr section 
+add a section_container
 
+-components_F: cr StartupCard.tsx
+-page.tsx: import StartupCard from '@/components/StartupCard';
+
+for new date go to <a lib_f/utils.ts> and add a new func 
+ Add: <EyeIcon className="size-6 text-primary" />
+          <span>{post.views}</span>
+  
+Add Link for diferent options 
+
+nextConfig.ts: Cr  remotePatterns: 'https:' -to ALLOW Images from all resources
 
 
 
