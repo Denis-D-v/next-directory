@@ -187,13 +187,113 @@ for new date go to <a lib_f/utils.ts> and add a new func
 Add Link for diferent options 
 
 nextConfig.ts: Cr  remotePatterns: 'https:' -to ALLOW Images from all resources
+settings
+
+added  
 
 
+==============<the SANITY>==================
+npm create sanity@latest -- --project e9yqg66k --dataset production --template clean
 
+login by email or google
+ Would you like to add configuration files for a 
+Sanity project in this Next.js folder? ---Yes
+? Do you want to use TypeScript? ---Yes
+? Would you like an embedded Sanity Studio? --Yes
+? What route do you want to use for the Studio?--- /studio
+? Select project template to use ---Clean project with no pr
+edefined schema types
+? Would you like to add the project ID and dataset to you
+r .env.local file? Yes
 
+Then u see <a sanity.cli.ts, sanity.config.ts>  in the project
+-sanity_F/lib_F: delete image.ts
+How works this app: 
+NEXT AUTH--> IF YES CR A SESSION, IF NOT GOT TO GITHUB OAuth ---> get User(info)
+-->and Cr Session-->if user exist call to Sanity-->Find user as Author -->
+if find return Author  if not CR New Author and return this  Author
 
+-shemaTypes_F: cr author.ts
+import { defineField, defineType } from "sanity";
+import { UserIcon } from "lucide-react";
 
+export const author = defineType({
+    name: "author",
+    title: 'Author',
+    type: 'document',
+    icon: UserIcon,
+    fields: [
+        defineField({
+            name: 'id',
+            type: 'number',
+        }),
+        defineField({
+            name: 'name',
+            type: 'string',
+        }),
+        defineField({
+            name: 'username',
+            type: 'string',
+        }),
+        defineField({
+            name: 'email',
+            type: 'string',
+        }),
+        defineField({
+            name: 'image',
+            type: 'url',
+        }),
+        defineField({
+            name: 'bio',
+            type: 'text',
+        }),
+    ],
+    preview: {
+        select:{
+            title: 'name',
+        },
+    },
+});
 
+CR f startup.ts
+cr structure.ts
+
+npm install sanity-plugin-markdown
+-sanity.config.ts: 
+'use client';
+
+/**
+ * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
+ */
+
+import { visionTool } from '@sanity/vision';
+import { defineConfig } from 'sanity';
+import { structureTool } from 'sanity/structure';
+
+// Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
+import { apiVersion, dataset, projectId } from './sanity/env';
+import { schema } from './sanity/schemaTypes';
+import { structure } from './sanity/structure';
+import { markdownSchema } from 'sanity-plugin-markdown';
+
+export default defineConfig({
+  basePath: '/studio',
+  projectId,
+  dataset,
+  // Add and edit the content schema in the './sanity/schemaTypes' folder
+  schema,
+  plugins: [
+    structureTool({ structure }),
+    // Vision is for querying with GROQ from inside the Studio
+    // https://www.sanity.io/docs/the-vision-plugin
+    visionTool({ defaultApiVersion: apiVersion }), //added
+    markdownSchema(),
+  ],
+});
+
+-http://localhost:3000/studio/structure/author:
+cr author
+cr startup
 
 
 
