@@ -297,10 +297,47 @@ cr startup
 
 
 
+=======<a Sanity_Studio how to use UI>=======
+- http://localhost:3000/studio/structure 
+on the top "Structure" and "Vision" --> push "Vision"
+
+LeftSidebar/Query: write *[_type == "startup"] : u will see the result about "startup"
+createdAt, category , description and others info...
+
+but if you write *[_type == "startup" && defined(slug.current)]{
+  _id, title, slug, _createdAt,
+    author, views, description, catergory, image
+}
+And PUSH "<FETCH>"_button  beloww
+//<o defined(slug.current): means its not null>
+//<o {_id, title..image}: means what u need to see exactly>
+
+and you get something like:
+_createdAt:2025-05-06T14:53:15Z
+_id:259f44bc-524a-4340-8181-67baad5af4cc
+author:{…} 2 properties
+_ref:ff3bf179-300a-49fe-9642-b2711b81e5e1
+_type:reference
+...
+
+so if u wanna to show about author need write like this:
+*[_type == "startup" && defined(slug.current)]{
+  _id, 
+    title, 
+    slug, 
+    _createdAt,
+    author ->{                       //{}here we write what 
+      _id, name, image, bio          //exatcly need
+    }, 
+    views, 
+    description, 
+    catergory, 
+    image
+}
+
+-lib_F: cr queries.ts
 
 
 
 
-
-npm install @tailwindcss/postcss
 
