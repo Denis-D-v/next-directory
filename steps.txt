@@ -336,6 +336,66 @@ so if u wanna to show about author need write like this:
 }
 
 -lib_F: cr queries.ts
+import { defineQuery } from 'next-sanity';
+
+export const STARTUPS_QUERY =
+  defineQuery(`*[_type == "startup" && defined(slug.current)] | order_(createdAt desc) {
+    _id, 
+      title, 
+      slug, 
+      _createdAt,
+      author ->{
+        _id, name, image, bio
+      }, 
+      views, 
+      description, 
+      catergory, 
+      image
+  }`);
+
+npm install --save-dev @sanity/codegen
+package.json: add script - codegen
+"scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "codegen": "npx sanity-codegen --output-path ./sanity/types.ts --studio-path ./sanity"
+  },
+
+npm run codegen
+Сканирует все схемы в /sanity/schemaTypes
+Создаёт строгие TypeScript-типы для всех документов и полей
+Упрощает работу с Sanity-контентом в Next.js / React
+
+
+-app/root/page.tsx(home):
+
+=========<W GENERATE Typescript Types (video need to found on youtube)>=========
+(2.39)
+-terminal: npx sanity@latest schema extract --path=./sanity/extract.json
+ u will get <extract.json>
+-NEXT_DIRECTORY_F: cr sanity-typegen.json
+{
+  "path": "./src/**/*.{ts,tsx,js,jsx}",
+  "schema": "./sanity/extract.json",
+  "generates": "./sanity/types.ts"
+}
+
+-  npx sanity@latest typegen
+
+-package.json/scripts: add
+"predev": "npm run typegen",
+    "prebuild": "npm run typegen",
+    "typegen": "sanity schema extract --path=./sanity/extract.json && sanity typegen generate"
+
+-npm run typegen
+(from sanity/Learn: 
+https://www.sanity.io/learn/course/typescripted-content/generating-type-for-groq-query-results)
+
+-StartupCard.tsx: cr type
+export type StartupTypeCard = Omit<Startup, 'author'> & { author?: Author };
+
 
 
 
