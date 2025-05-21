@@ -353,21 +353,6 @@ export const STARTUPS_QUERY =
       image
   }`);
 
-npm install --save-dev @sanity/codegen
-package.json: add script - codegen
-"scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "codegen": "npx sanity-codegen --output-path ./sanity/types.ts --studio-path ./sanity"
-  },
-
-npm run codegen
-Сканирует все схемы в /sanity/schemaTypes
-Создаёт строгие TypeScript-типы для всех документов и полей
-Упрощает работу с Sanity-контентом в Next.js / React
-
 
 -app/root/page.tsx(home):
 
@@ -382,7 +367,7 @@ npm run codegen
   "generates": "./sanity/types.ts"
 }
 
--  npx sanity@latest typegen
+-  npx sanity@latest typegen generate
 
 -package.json/scripts: add
 "predev": "npm run typegen",
@@ -397,7 +382,49 @@ https://www.sanity.io/learn/course/typescripted-content/generating-type-for-groq
 export type StartupTypeCard = Omit<Startup, 'author'> & { author?: Author };
 
 
+======<Optimize cash schema for show new post imediatly>======
+-http://localhost:3000/studio/structure/startup:
+create a new Post:
+ satrups_F: copy document by "... in topRightCorner", push "+"(Cr new doc) and paste,
+ change slug--> "jsm-academy-masterclass" to "jsm-academy-masterclass-11"
+
+ For <IMMEDITELY SHOW a NEW POST> U Need-->
+ -->sanity/lib_F/client.ts: change <t useCdn:true> to  <a 'useCdn: false'>
+
+and <USE Live Content API> https://www.sanity.io/docs/content-lake/live-content-api#471245531c80
+
+-terminal: npm i server-only
+
+-sanity_F/lib: cr live.ts: 
+import 'server-only';
+import { defineLive } from 'next-sanity';
+import { client } from './client';
+
+export const { sanityFetch, SanityLive } = defineLive({
+  client: client.withConfig({
+    // Live content is currently only available on the experimental API
+    // https://www.sanity.io/docs/api-versioning
+    apiVersion: 'vX',
+  }),
+});
+
+- .env.local: add NEXT_PUBLIC_SANITY_API_VERSION="vX"
+
+-root/page.tsx:  const posts = await client.fetch(STARTUPS_QUERY) change to 
+<c const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, });  >
+
+-root/page.tsx: add SanityLive and import 
+import { sanityFetch, SanityLive } from '@/sanity/lib/live';
+  <p className="no-results">No startups found</p>
+          )}
+        </ul>
+      </section>
+      <SanityLive/> //THIS ONE added
+    </>
+
+-Sanity_Studio/startup: cr a new post "New Document" by copy doc before
+copy doc press "+" , paste doc --> rename --> press generate--> press publish 
+and u wil see on web page a new post IMMEDITELY cos using cash , not reload all page
 
 
-
-
+===========<MAKE SEARCH WORK>===============
