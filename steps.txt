@@ -428,3 +428,15 @@ and u wil see on web page a new post IMMEDITELY cos using cash , not reload all 
 
 
 ===========<MAKE SEARCH WORK>===============
+page.tsx: need params for search
+const params = {search: query II null};
+
+and add <params> to:
+const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, <params> });
+
+-queries.ts: change "defineQuery"
+defineQuery(`*[_type == "startup" && defined(slug.current) && !defined($search) || title match $search 
+|| category match $search || author->name match $search] | order(_createdAt desc) {.....}`);
+
+
+========<a Create Details Page>==============
